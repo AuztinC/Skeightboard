@@ -1,0 +1,20 @@
+personal big one ;)
+
+started from capstone repo
+
+skate shop -- name?? skeightboard
+
+pages? {
+	Skeight  -- ( boards - trucks - bearings - wheels)
+
+	accessories -- ( stickers - shoes - shirts )
+
+	sale -- all items on sale || coupons list?
+
+	trends -- best selling items(top 2) in each category
+}
+
+user can login / sign up
+user can filter decks by size / brand
+accessories will filter to bearings / wheels / trucks
+user can enter discount code at checkout ?
