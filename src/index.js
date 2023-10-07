@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Link, HashRouter, Routes, Route } from 'react-router-dom';
-import Products from './Products';
+import Decks from './Decks';
+import Wheels from './Wheels';
 import Orders from './Orders';
 import Cart from './Cart';
 import Login from './Login';
 import api from './api';
+import Home from './Home';
+import Products from './Products';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
@@ -19,14 +22,12 @@ const App = ()=> {
 
   useEffect(()=> {
     attemptLoginWithToken();
-  }, []);
-
-  useEffect(()=> {
     const fetchData = async()=> {
       await api.fetchProducts(setProducts);
     };
     fetchData();
   }, []);
+
 
   useEffect(()=> {
     if(auth.id){
@@ -79,14 +80,17 @@ const App = ()=> {
     api.logout(setAuth);
   }
 
-  return (
+  return (<>
     <div>
       {
         auth.id ? (
           <>
             <nav>
-              <Link to='/products'>Products ({ products.length })</Link>
-              <Link to='/orders'>Orders ({ orders.filter(order => !order.is_cart).length })</Link>
+              <Link to='/'> <h1>Go Skeightboard</h1> </Link>
+              <Link to='/products'>All Products </Link>
+              <Link to='/decks'>Decks </Link>
+              <Link to='/wheels'>Wheels </Link>
+              <Link to='/orders'> Your Orders ({ orders.filter(order => !order.is_cart).length })</Link>
               <Link to='/cart'>Cart ({ cartCount })</Link>
               <span>
                 Welcome { auth.username }!
@@ -94,31 +98,38 @@ const App = ()=> {
               </span>
             </nav>
             <main>
-              <Products
+              {/* <Decks
                 auth = { auth }
                 products={ products }
                 cartItems = { cartItems }
                 createLineItem = { createLineItem }
                 updateLineItem = { updateLineItem }
               />
-              <Cart
+              <Wheels
+                auth = { auth }
+                products={ products }
+                cartItems = { cartItems }
+                createLineItem = { createLineItem }
+                updateLineItem = { updateLineItem }
+              /> */}
+              {/* <Cart
                 cart = { cart }
                 lineItems = { lineItems }
                 products = { products }
                 updateOrder = { updateOrder }
                 removeFromCart = { removeFromCart }
-              />
-              <Orders
+              /> */}
+              {/* <Orders
                 orders = { orders }
                 products = { products }
                 lineItems = { lineItems }
-              />
+              /> */}
             </main>
             </>
         ):(
           <div>
             <Login login={ login }/>
-            <Products
+            <Decks
               products={ products }
               cartItems = { cartItems }
               createLineItem = { createLineItem }
@@ -129,7 +140,35 @@ const App = ()=> {
         )
       }
     </div>
-  );
+    <Routes>
+      <Route path='/' element={ <Home /> }
+      />
+      <Route path='products' element={ <Products
+                auth = { auth }
+                products={ products }
+                cartItems = { cartItems }
+                createLineItem = { createLineItem }
+                updateLineItem = { updateLineItem }
+              /> }
+      />
+      <Route path='decks' element={ <Decks
+                auth = { auth }
+                products={ products }
+                cartItems = { cartItems }
+                createLineItem = { createLineItem }
+                updateLineItem = { updateLineItem }
+              /> }
+      />
+      <Route path='wheels' element={ <Wheels
+                auth = { auth }
+                products={ products }
+                cartItems = { cartItems }
+                createLineItem = { createLineItem }
+                updateLineItem = { updateLineItem }
+              /> }
+      />
+    </Routes>
+  </>);
 };
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
