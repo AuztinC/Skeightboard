@@ -73,6 +73,7 @@ const seed = async()=> {
     createUser({ username: 'ethyl', password: '1234', is_admin: true})
   ]);
   await Promise.all([
+    // ---- DECKS 
     createProduct({ 
       name: 'Flames Skateboard Deck', 
       category: 'deck', 
@@ -89,6 +90,16 @@ const seed = async()=> {
       img: 'https://shop.ccs.com/cdn/shop/files/827059434897-1.jpg?v=1689891736',
       price: 7695
     }),
+    createProduct({ 
+      name: 'Girl Mouse Howard Twin Skateboard Deck', 
+      category: 'deck', 
+      size: '8.50"', 
+      description: 'Rick Howard Pro Model',
+      img: 'https://shop.ccs.com/cdn/shop/files/889846280926-1.jpg?v=1696282272',
+      price: 6395
+    }),
+    // ---- DECKS
+    
     createProduct({ 
       name: 'SML Bluff Park Tom Knox Skateboard Wheels', 
       category: 'wheels', 

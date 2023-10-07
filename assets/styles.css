@@ -1,5 +1,6 @@
 body {
   font-family: verdana;
+  min-height: 100vh;
 }
 
 form {
@@ -9,4 +10,24 @@ form {
 
 form > * {
   margin: 0.5rem;
+}
+.list-cont{
+  border: 1px solid black;
+  width: 750px;
+  min-height: 100vh;
+  display: flex;
+}
+.list-item {
+  flex: 1;
+  border: 1px solid black;
+  width: calc(100%/3 -2rem);
+}
+.list-img {
+  max-height: 300px;
+}
+.products{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -2,13 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Products = ({ products, cartItems, createLineItem, updateLineItem, auth})=> {
-//   const products = products.filter(product=> product.category === 'product')
-//   if(!products){
-//     return null
-//   }
+
   return (
     <div>
-      <h2>products</h2>
+      <h2>All Products</h2>
       <ul>
         {
           products.map( product => {

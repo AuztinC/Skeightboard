@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Link, HashRouter, Routes, Route } from 'react-router-dom';
+import { Link, HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import api from './api';
 import Decks from './Decks';
 import Wheels from './Wheels';
 import Orders from './Orders';
 import Cart from './Cart';
 import Login from './Login';
-import api from './api';
 import Home from './Home';
 import Products from './Products';
+import CreateUser from './CreateUser';
 
 const App = ()=> {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [lineItems, setLineItems] = useState([]);
   const [auth, setAuth] = useState({});
+  const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
 
   const attemptLoginWithToken = async()=> {
     await api.attemptLoginWithToken(setAuth);
   }
 
   useEffect(()=> {
+    auth.id ?? navigate('/')
     attemptLoginWithToken();
     const fetchData = async()=> {
       await api.fetchProducts(setProducts);
@@ -94,48 +98,15 @@ const App = ()=> {
               <Link to='/cart'>Cart ({ cartCount })</Link>
               <span>
                 Welcome { auth.username }!
-                <button onClick={ logout }>Logout</button>
+                <button onClick={()=>{logout(); navigate('/')}}>Logout</button>
               </span>
             </nav>
-            <main>
-              {/* <Decks
-                auth = { auth }
-                products={ products }
-                cartItems = { cartItems }
-                createLineItem = { createLineItem }
-                updateLineItem = { updateLineItem }
-              />
-              <Wheels
-                auth = { auth }
-                products={ products }
-                cartItems = { cartItems }
-                createLineItem = { createLineItem }
-                updateLineItem = { updateLineItem }
-              /> */}
-              {/* <Cart
-                cart = { cart }
-                lineItems = { lineItems }
-                products = { products }
-                updateOrder = { updateOrder }
-                removeFromCart = { removeFromCart }
-              /> */}
-              {/* <Orders
-                orders = { orders }
-                products = { products }
-                lineItems = { lineItems }
-              /> */}
-            </main>
-            </>
+          </>
         ):(
           <div>
+            
             <Login login={ login }/>
-            <Decks
-              products={ products }
-              cartItems = { cartItems }
-              createLineItem = { createLineItem }
-              updateLineItem = { updateLineItem }
-              auth = { auth }
-            />
+            <Link to={'/create-user'}></Link>
           </div>
         )
       }
@@ -166,6 +137,20 @@ const App = ()=> {
                 createLineItem = { createLineItem }
                 updateLineItem = { updateLineItem }
               /> }
+      />
+      <Route path='cart' element={ <Cart
+                cart = { cart }
+                lineItems = { lineItems }
+                products = { products }
+                updateOrder = { updateOrder }
+                removeFromCart = { removeFromCart }
+              />  }
+      />
+      <Route path='orders' element={ <Orders
+                orders = { orders }
+                products = { products }
+                lineItems = { lineItems }
+              />  }
       />
     </Routes>
   </>);

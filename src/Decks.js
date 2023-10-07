@@ -6,17 +6,17 @@ const Decks = ({ products, cartItems, createLineItem, updateLineItem, auth})=> {
   if(!decks){
     return null
   }
-  return (
-    <div>
-      <h2>Decks</h2>
-      <ul>
+  return (<>
+  <div className='products'>
+    <h2>Decks</h2>
+    <div className='list-cont'>
         {
           decks.map( deck => {
             const cartItem = cartItems.find(lineItem => lineItem.product_id === deck.id);
             return (
-              <li key={ deck.id }>
-                {/* <img src={`${ deck.img }`}/> */}
-                { deck.name }
+              <div key={ deck.id } className='list-item'>
+                <img src={`${ deck.img }`} className='list-img'/>
+                <h3>{ deck.name }</h3>
                 {
                   auth.id ? (
                     cartItem ? <button onClick={ ()=> updateLineItem(cartItem)}>Add Another</button>: <button onClick={ ()=> createLineItem(deck)}>Add</button>
@@ -27,13 +27,13 @@ const Decks = ({ products, cartItems, createLineItem, updateLineItem, auth})=> {
                     <Link to={`/products/${deck.id}/edit`}>Edit</Link>
                   ): null
                 }
-              </li>
+              </div>
             );
           })
         }
-      </ul>
     </div>
-  );
+  </div>
+  </>);
 };
 
 export default Decks;
